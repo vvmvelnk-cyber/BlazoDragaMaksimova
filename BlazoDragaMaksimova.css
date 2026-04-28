@@ -27,7 +27,7 @@ body {
 }
 
 .family {
-    width: 180px;
+    width: 160px;
     font-family: wester, 'sans-serif';
     font-style: italic;
     font-size: 18px;
@@ -123,12 +123,12 @@ hr {
     color: white;
 }
 #copyright {
+    position: fixed;
     text-align: center;
     font-size: 16px;
-    padding: 20px;
-    color: black;
-    border-top: 3px solid white;
-    border-bottom: 3px solid white;
+    color: #ddd;
+    left: 30px;
+    bottom: 10px;
 }
 @media screen and (min-width: 400px) and (max-width: 900px) {
     #head {
@@ -225,7 +225,7 @@ hr {
   .imgGroup {
     display: block;
   }
-
+ 
     .iS {
         position: absolute;
         width: 60px;
@@ -242,14 +242,15 @@ hr {
     .iL {
         display: none;
         position: fixed;
-        top: 125px;
-        left: 10px;
+        top: 130px;
+        left: 20px;
         width: auto;
         height: 300px;
         min-width: 200px;
         border: 0.1px solid #aaa;
         border-radius: 20px;
-        cursor: pointer;       
+        cursor: pointer; 
+        z-index: 1;
     }
 
 

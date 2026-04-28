@@ -278,16 +278,16 @@ smallArr = [
     [19, 3, 'Vlastimir - Mićo', 'Medojević', 0, 0, 0, 1, 4, 5],
     [20, 3, 'Stanislavka - Stana', 'Nikolić', 1, 0, 0],
     [21, 3, 'Nada', 'Pantović', 6, 0, 0, 1, 7, 6],
-    [22, 3, 'Brano', 'Nikočević', 7, 0, 0],
+    [22, 3, 'Branislav - Brano', 'Nikočević', 7, 0, 0],
     [23, 3, 'Zora', 'Pantović', 6, 0, 0, 1, 7, 6],
     [24, 3, 'Vukojica', 'Mrdović', 7, 0, 0],
     [25, 3, 'Zoran', 'Pantović', 4, 0, 0, 1, 7, 6],
     [26, 3, 'Jasna', '?', 5, 0, 0],
     [27, 3, 'Gorčin', 'Pantović', 4, 0, 0, 1, 7, 6],
-    [28, 3, '?', '?', 5, 0, 0],
-    [29, 3, '?', '?', 7, 0, 0],
+    [28, 3, 'Nataša', 'Vasiljević', 5, 0, 0],
+    [29, 3, 'Tanja', 'Vasiljević', 7, 0, 0],
     [30, 3, 'Vesna', 'Delić', 6, 0, 0, 1, 10, 9],
-    [31, 3, '?', 'Obradović', 7, 0, 0],
+    [31, 3, 'Miško', 'Obradović', 7, 0, 0],
     [32, 3, 'Dejan', 'Delić', 4, 0, 0, 1, 10, 9],
     [33, 3, 'Dijana', 'Mrdović', 5, 0, 0],
     [34, 3, 'Biljana - Bilja', 'Delić', 6, 0, 0, 1, 10, 9],
@@ -297,11 +297,11 @@ smallArr = [
     [38, 3, 'Siniša', 'Medojević', 0, 0, 0, 1, 11, 12],
     [39, 3, 'Danijela', 'Obradović', 1, 0, 0],
     [40, 3, 'Svetlana', 'Ćorić', 6, 0, 0, 1, 14, 13],
-    [41, 3, '?', 'Stijepović', 7, 0, 0],
+    [41, 3, 'Ratko', 'Stijepović', 7, 0, 0],
     [42, 3, 'Saša', 'Ćorić', 4, 0, 0, 1, 14, 13],
     [43, 3, '?', '?', 5, 0, 0],
     [44, 3, 'Andrijana', 'Ćorić', 6, 0, 0, 1, 14, 13],
-    [45, 3, '?', 'Mugoša', 7, 0, 0],
+    [45, 3, 'Dejan', 'Mugoša', 7, 0, 0],
     [46, 3, 'Dragojle - Drago', 'Medojević', 0, 0, 0, 1, 15, 16],
     [47, 3, 'Mirjana', 'Pantović', 1, 0, 0],
     [48, 3, 'Aleksandar - Aco', 'Medojević', 0, 0, 0, 1, 15, 16],
@@ -352,7 +352,11 @@ function coordinateCount2() {
                 n3++;
             }            
         } 
-        x02 = (wWidth-(3*a2 + 2*dH))/2 - 30;
+        if ((wWidth-(3*a2 + 2*dH))/2 > 30) {
+          x02 = (wWidth-(3*a2 + 2*dH))/2 - b2/2;  
+        } else {
+            x02 = 30;
+        }
         for(let i=0; i<n1; i++) {
             smallArr[i][5] = x02;
             smallArr[i][6] = y02 + b2*i;
@@ -408,8 +412,16 @@ function coordinateCount2() {
                         if((s+1!==cA2.length) && (smallArr[cA2[s]][8] === smallArr[cA2[s+1]][8])){
                             prvi = false;                     
                         } else {
-                            for(let t=r; t<n1+n2; t++){
-                               smallArr[t][6] = smallArr[t][6] - b2/2;
+                            yFather = yFC - b2/2;
+                            yTranslate = yFather - smallArr[r][6];
+                            if (yTranslate>=0) {
+                               for(let t=r; t<n1+n2; t++){
+                                    smallArr[t][6] = smallArr[t][6] + yTranslate; 
+                               }
+                            } else if (yTranslate<0) {
+                                for(let t=fCI; t<smallArr.length; t++){
+                                   smallArr[t][6] = smallArr[t][6] - yTranslate;
+                                }
                             }
                         }
                     } else if((s===cA2.length-1) || (smallArr[cA2[s]][8] !== smallArr[cA2[s+1]][8])) {
